@@ -1,0 +1,338 @@
+Program.Sub.ScreenSU.Start
+gui.f_Main..create
+gui.f_Main..caption("Job/Gage Assignment")
+gui.f_Main..size(4425,4155)
+gui.f_Main..minx(0)
+gui.f_Main..miny(0)
+gui.f_Main..position(0,0)
+gui.f_Main..event(unload,ss_form1_unload)
+gui.f_Main..alwaysontop(False)
+gui.f_Main..fontname("Arial")
+gui.f_Main..fontsize(8)
+gui.f_Main..forecolor(0)
+gui.f_Main..fontstyle(,,,,)
+gui.f_Main..BackColor(-2147483633)
+gui.f_Main..controlbox(True)
+gui.f_Main..maxbutton(False)
+gui.f_Main..minbutton(False)
+gui.f_Main..mousepointer(0)
+gui.f_Main..moveable(True)
+gui.f_Main..sizeable(False)
+gui.f_Main..ShowInTaskBar(True)
+gui.f_Main..titlebar(True)
+gui.f_Main.lbl_txtJob.create(label,"Job",True,1800,200,1,100,135,True,0,Arial,8,-2147483633,0)
+gui.f_Main.lbl_txtJob.defaultvalue("")
+gui.f_Main.lbl_txtJob.controlgroup(0)
+gui.f_Main.txtJob.create(textbox,"",True,1250,330,0,100,335,False,0,Arial,8,16777215,1)
+gui.f_Main.txtJob.defaultvalue("")
+gui.f_Main.txtJob.controlgroup(0)
+gui.f_Main.lbl_txtSuffix.create(label,"Suffix",True,750,200,1,1400,135,True,0,Arial,8,-2147483633,0)
+gui.f_Main.lbl_txtSuffix.defaultvalue("")
+gui.f_Main.lbl_txtSuffix.controlgroup(0)
+gui.f_Main.txtSuffix.create(textbox,"",True,750,330,0,1400,335,False,0,Arial,8,16777215,1)
+gui.f_Main.txtSuffix.defaultvalue("")
+gui.f_Main.txtSuffix.controlgroup(0)
+gui.f_Main.lbl_txtGage.create(label,"Gage Serial",True,1800,200,1,100,835,True,0,Arial,8,-2147483633,0)
+gui.f_Main.lbl_txtGage.defaultvalue("")
+gui.f_Main.lbl_txtGage.controlgroup(0)
+gui.f_Main.txtGage.create(textbox,"",True,1500,330,0,100,1035,True,0,Arial,8,16777215,1)
+gui.f_Main.txtGage.defaultvalue("")
+gui.f_Main.txtGage.controlgroup(0)
+gui.f_Main.cmdAdd.create(button)
+gui.f_Main.cmdAdd.caption("Add")
+gui.f_Main.cmdAdd.visible(True)
+gui.f_Main.cmdAdd.size(985,300)
+gui.f_Main.cmdAdd.zorder(0)
+gui.f_Main.cmdAdd.position(2000,1035)
+gui.f_Main.cmdAdd.enabled(True)
+gui.f_Main.cmdAdd.fontname("Arial")
+gui.f_Main.cmdAdd.fontsize(8)
+gui.f_Main.cmdAdd.event(click,cmdadd_click)
+gui.f_Main.cmdAdd.defaultvalue("")
+gui.f_Main.cmdAdd.controlgroup(0)
+gui.f_Main.cmdRemove.create(button)
+gui.f_Main.cmdRemove.caption("Remove")
+gui.f_Main.cmdRemove.visible(True)
+gui.f_Main.cmdRemove.size(1000,300)
+gui.f_Main.cmdRemove.zorder(0)
+gui.f_Main.cmdRemove.position(3070,1035)
+gui.f_Main.cmdRemove.enabled(True)
+gui.f_Main.cmdRemove.fontname("Arial")
+gui.f_Main.cmdRemove.fontsize(8)
+gui.f_Main.cmdRemove.event(click,cmdremove_click)
+gui.f_Main.cmdRemove.defaultvalue("")
+gui.f_Main.cmdRemove.controlgroup(0)
+gui.f_Main.lvGages.create(listview)
+gui.f_Main.lvGages.view(3)
+gui.f_Main.lvGages.addlistviewcolumn("Gage Serial",1850,0)
+gui.f_Main.lvGages.addlistviewcolumn("Current CAL Date",1850,1)
+gui.f_Main.lvGages.visible(True)
+gui.f_Main.lvGages.size(3970,2000)
+gui.f_Main.lvGages.zorder(0)
+gui.f_Main.lvGages.position(100,1535)
+gui.f_Main.lvGages.enabled(True)
+gui.f_Main.lvGages.fontname("Arial")
+gui.f_Main.lvGages.fontsize(8)
+gui.f_Main.cmdbrw_Gage.create(button)
+gui.f_Main.cmdbrw_Gage.caption("^")
+gui.f_Main.cmdbrw_Gage.visible(True)
+gui.f_Main.cmdbrw_Gage.size(300,300)
+gui.f_Main.cmdbrw_Gage.zorder(0)
+gui.f_Main.cmdbrw_Gage.position(1650,1035)
+gui.f_Main.cmdbrw_Gage.enabled(True)
+gui.f_Main.cmdbrw_Gage.fontname("Arial")
+gui.f_Main.cmdbrw_Gage.fontsize(8)
+gui.f_Main.cmdbrw_Gage.event(click,cmdbrw_gage_click)
+gui.f_Main.cmdbrw_Gage.defaultvalue("")
+gui.f_Main.cmdbrw_Gage.controlgroup(0)
+gui.f_Main.txtGage.tabstop(true)
+gui.f_Main.txtGage.tabindex(1)
+gui.f_Main.cmdAdd.tabstop(true)
+gui.f_Main.cmdAdd.tabindex(2)
+gui.f_Main.cmdRemove.tabstop(true)
+gui.f_Main.cmdRemove.tabindex(3)
+gui.f_Main.lvGages.tabstop(true)
+gui.f_Main.lvGages.tabindex(4)
+
+
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.sJob.Declare(String)
+V.Local.sSuffix.Declare(String)
+V.Local.sSeq.Declare(String)
+V.Local.sSQL.Declare(String)
+V.Local.sDesc.Declare(String)
+V.Local.sEmp.Declare(String)
+'
+'F.Intrinsic.Debug.InvokeDebugger
+'F.Intrinsic.Debug.Stop
+
+Function.Intrinsic.Control.If(V.Caller.Hook,<>,15880)
+	Function.Intrinsic.Control.End
+Function.Intrinsic.Control.EndIf
+
+V.Local.sJob.Set(V.Passed.009990)
+V.Local.sSuffix.Set(V.Passed.009991)
+V.Local.sSeq.Set(V.Passed.009992)
+V.Local.sEmp.Set(V.Passed.009993)
+
+Function.ODBC.Connection!CONX.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+
+Function.Intrinsic.String.Build("SELECT A.PART, A.OPERATION, B.DESCRIPTION FROM V_JOB_OPERATIONS AS A LEFT JOIN V_OP_CODES AS B ON A.PART = B.MACHINE AND A.OPERATION = B.OPERATION WHERE JOB = '{0}' AND SUFFIX = '{1}' AND SEQ = '{2}'",V.Local.sJob,V.Local.sSuffix,V.Local.sSeq,V.Local.sSQL)
+Function.ODBC.Connection!CONX.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+
+Function.Intrinsic.Control.If(V.ODBC.CONX!rst.EOF,=,False)
+Function.Intrinsic.Control.AndIf(V.ODBC.CONX!rst.FieldValTrim!OPERATION,<>,"")
+'	Function.Intrinsic.String.Right(V.ODBC.CONX!rst.FieldValTrim!DESCRIPTION,7,V.Local.sDesc)
+	V.local.sDesc.Set(V.ODBC.CONX!rst.FieldValTrim!DESCRIPTION)
+	Function.Intrinsic.Control.If(V.Local.sDesc.right7,=,"THD INS")
+		Function.ODBC.CONX!rst.Close
+		Function.Intrinsic.String.Concat("SELECT DEPT_EMPLOYEE FROM V_EMPLOYEE_MSTR WHERE EMPLOYEE = '",V.Local.sEmp,"'",V.Local.sSQL)
+		Function.ODBC.CONNECTION!CONX.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+		Function.Intrinsic.Control.If(V.ODBC.CONX!rst.EOF,=,False)
+		Function.Intrinsic.Control.AndIf(V.ODBC.CONX!rst.FieldValTrim!DEPT_EMPLOYEE,=,"0450")
+			Gui.f_Main.txtJob.text(V.Local.sJob)
+			Gui.f_Main.txtSuffix.Text(V.Local.sSuffix)
+			Function.Intrinsic.Control.CallSub(Loadlist)
+		Function.Intrinsic.Control.EndIf
+		Function.ODBC.CONX!rst.Close
+	Function.Intrinsic.Control.Else
+		Function.ODBC.CONX!rst.Close
+	Function.Intrinsic.Control.EndIf
+Function.Intrinsic.Control.EndIf
+
+'Function.ODBC.Connection!CONX.Close
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_GAGE_JOB.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Main.End
+
+program.sub.cmdbrw_gage_click.start
+F.Intrinsic.Control.SetErrorHandler("cmdbrw_gage_click_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.sW.Declare(String)
+V.Local.sT.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.sSQL.Declare(String)
+
+'BUILDING BROWSER
+Function.Intrinsic.String.Split("Gage*!*Description*!*Current CAL Date","*!*",V.Local.sT)
+Function.Intrinsic.String.Split("2500*!*5000*!*1500","*!*",V.Local.sW)
+V.Local.sSQL.Set("SELECT * FROM GCG_GAGE_MAINT ORDER BY GAGE_NO ASC")
+
+Function.Intrinsic.UI.Browser("Select a Gage","CONX",V.Local.sSQL,V.Local.sT,V.Local.sW,V.Local.sRet)
+
+Function.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+	Function.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+	Gui.f_Main.txtGage.Text(V.Local.sRet(0).Trim)
+Function.Intrinsic.Control.EndIf
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("cmdbrw_gage_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_GAGE_JOB.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.cmdbrw_gage_click.end
+
+program.sub.cmdadd_click.start
+F.Intrinsic.Control.SetErrorHandler("cmdadd_click_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.sSQL.Declare(String)
+
+Function.Intrinsic.Control.If(V.SCREEN.f_Main!txtGage.Text,<>,"")
+	Function.Intrinsic.String.Build("SELECT * FROM GCG_4039_JOB WHERE JOB = '{0}' AND SUFFIX = '{1}' AND GAGE_NO = '{2}'",V.Screen.f_Main!txtJob.Text,V.Screen.f_Main!txtSuffix.Text,V.Screen.f_Main!txtGage.Text,V.Local.sSQL)
+	Function.ODBC.Connection!CONX.OpenLocalRecordsetRW("rst",V.Local.sSQL)
+	Function.Intrinsic.Control.If(V.ODBC.CONX!rst.EOF,=,True)
+		Function.Intrinsic.String.Concat("SELECT * FROM GCG_GAGE_MAINT WHERE GAGE_NO = '",V.Screen.f_Main!txtGage.Text,"'",V.Local.sSQL)
+		Function.ODBC.Connection!CONX.OpenLocalRecordsetRO("rstGage",V.Local.sSQL)
+		Function.ODBC.CONX!rst.AddNew
+		Function.ODBC.CONX!rst.Set!JOB(V.Screen.f_Main!txtJob.Text)
+		Function.ODBC.CONX!rst.Set!SUFFIX(V.screen.f_Main!txtSuffix.Text)
+		Function.ODBC.CONX!rst.Set!GAGE_NO(V.ODBC.CONX!rstGage.FieldValTrim!GAGE_NO)
+		Function.ODBC.CONX!rst.Set!DESCRIPTION(V.ODBC.CONX!rstGage.FieldValTrim!DESCRIPTION)
+		Function.ODBC.CONX!rst.Set!CUR_CAL_DATE(V.ODBC.CONX!rstGage.FieldVal!CUR_CAL_DATE)
+		Function.ODBC.CONX!rst.Update
+		Function.ODBC.CONX!rst.Close
+		Function.ODBC.CONX!rstGage.Close
+		Gui.f_Main.txtGage.Text("")
+		Function.Intrinsic.Control.CallSub(Loadlist)
+	Function.Intrinsic.Control.Else
+		Function.Intrinsic.UI.Msgbox("This Gage has already been assigned to this Job. Duplicates are not allowed.","Duplicate Error")
+		Gui.f_Main.txtGage.Text("")
+	Function.Intrinsic.Control.EndIf
+Function.Intrinsic.Control.EndIf
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("cmdadd_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_GAGE_JOB.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.cmdadd_click.end
+
+program.sub.cmdremove_click.start
+F.Intrinsic.Control.SetErrorHandler("cmdremove_click_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.sSQL.Declare(String)
+
+Function.Intrinsic.Control.If(V.Screen.f_Main!lvGages.SelectedItemKey,<>,"***NORETURN***")
+Function.Intrinsic.Control.AndIf(V.Screen.f_Main!lvGages.SelectedItemKey,<>,"")
+	Function.Intrinsic.String.build("DELETE FROM GCG_4039_JOB WHERE JOB = '{0}' AND SUFFIX = '{1}' AND GAGE_NO = '{2}'",V.Screen.f_Main!txtJob.Text,V.Screen.f_Main!txtSuffix.Text,V.Screen.f_Main!lvGages.SelectedItemKey,V.Local.sSQL)
+	Function.ODBC.COnnection!CONX.Execute(V.Local.sSQL)
+	Function.Intrinsic.Control.CallSub(Loadlist)
+Function.Intrinsic.Control.EndIf
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("cmdremove_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_GAGE_JOB.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.cmdremove_click.end
+
+program.sub.ss_form1_unload.start
+Function.ODBC.Connection!CONX.Close
+Function.Intrinsic.Control.End
+
+
+program.sub.ss_form1_unload.end
+
+Program.Sub.LoadList.Start
+F.Intrinsic.Control.SetErrorHandler("LoadList_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.sSQL.Declare(String)
+
+Gui.f_Main..Visible(False)
+Gui.f_Main.lvGages.ClearItems
+
+Function.Intrinsic.String.Build("SELECT * FROM GCG_4039_JOB WHERE JOB = '{0}' AND SUFFIX = '{1}' ORDER BY GAGE_NO",V.Screen.f_Main!txtJob.Text,V.Screen.f_Main!txtSuffix.Text,V.Local.sSQL)
+Function.ODBC.Connection!CONX.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+Function.Intrinsic.Control.DoUntil(V.ODBC.CONX!rst.EOF,=,True)
+	Gui.f_Main.lvGages.AddListItem(V.ODBC.conx!rst.FieldValTrim!GAGE_NO,V.ODBC.CONX!rst.FieldValTrim!GAGE_NO)
+	Gui.f_Main.lvGages.SetListItemSubItemText(V.ODBC.CONX!rst.FieldValTrim!GAGE_NO,1,V.ODBC.CONX!rst.FieldVal!CUR_CAL_DATE)
+	Function.ODBC.CONX!rst.MoveNext
+Function.Intrinsic.Control.Loop
+Function.ODBC.CONX!rst.Close
+
+Gui.f_Main..Visible(True)
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("LoadList_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_GAGE_JOB.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.LoadList.End
+
+Program.Sub.Comments.Start
+${$0$}$GCG_4039_JOB$}$BLEFLER$}$11/10/2014
+Program.Sub.Comments.End
+Program.Sub.ScreenSS.Start
+SS_Form1{{CAPTION::Job/Gage Assignment
+SS_Form1.CTRL{{NAME::txtJob\\TYPE::2\\CAPTION::Job\\GROUP::1\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::txtSuffix\\TYPE::2\\CAPTION::Suffix\\GROUP::1\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::txtSeq\\TYPE::2\\CAPTION::Sequence\\GROUP::1\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::txtGage\\TYPE::2\\CAPTION::Gage Serial\\TABSTOP::1\\GROUP::2\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::cmdAdd\\TYPE::5\\CAPTION::Add\\TABSTOP::2\\GROUP::2\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::cmdRemove\\TYPE::5\\CAPTION::Remove\\TABSTOP::3\\GROUP::2\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::lvGages\\TYPE::7\\TABSTOP::4\\GROUP::3\\BROWSER::0\\SIZE::2
+
+Program.Sub.ScreenSS.End
+
