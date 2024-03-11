@@ -1,0 +1,293 @@
+Program.Sub.ScreenSU.Start
+gui.SS_Form1..create
+gui.SS_Form1..caption("Maintain Inspection Gages")
+gui.SS_Form1..size(7965,2525)
+gui.SS_Form1..minx(0)
+gui.SS_Form1..miny(0)
+gui.SS_Form1..position(0,0)
+gui.SS_Form1..event(unload,ss_form1_unload)
+gui.SS_Form1..alwaysontop(False)
+gui.SS_Form1..fontname("Arial")
+gui.SS_Form1..fontsize(8)
+gui.SS_Form1..forecolor(0)
+gui.SS_Form1..fontstyle(,,,,)
+gui.SS_Form1..BackColor(-2147483633)
+gui.SS_Form1..controlbox(True)
+gui.SS_Form1..maxbutton(False)
+gui.SS_Form1..minbutton(False)
+gui.SS_Form1..mousepointer(0)
+gui.SS_Form1..moveable(True)
+gui.SS_Form1..sizeable(False)
+gui.SS_Form1..ShowInTaskBar(True)
+gui.SS_Form1..titlebar(True)
+gui.SS_Form1.lbl_txtGage.create(label,"Gage Number",True,1800,200,1,100,135,True,0,Arial,8,-2147483633,0)
+gui.SS_Form1.lbl_txtGage.defaultvalue("")
+gui.SS_Form1.lbl_txtGage.controlgroup(0)
+gui.SS_Form1.txtGage.create(textbox,"",True,1800,330,0,100,335,True,0,Arial,8,16777215,1)
+gui.SS_Form1.txtGage.maxLength(20)
+gui.SS_Form1.txtGage.event(lostfocus,txtgage_lostfocus)
+gui.SS_Form1.txtGage.defaultvalue("")
+gui.SS_Form1.txtGage.controlgroup(1)
+gui.SS_Form1.cmd_txtGage.create(button)
+gui.SS_Form1.cmd_txtGage.caption("^")
+gui.SS_Form1.cmd_txtGage.visible(True)
+gui.SS_Form1.cmd_txtGage.size(330,330)
+gui.SS_Form1.cmd_txtGage.zorder(0)
+gui.SS_Form1.cmd_txtGage.position(1985,335)
+gui.SS_Form1.cmd_txtGage.enabled(True)
+gui.SS_Form1.cmd_txtGage.fontname("Arial")
+gui.SS_Form1.cmd_txtGage.fontsize(8)
+gui.SS_Form1.cmd_txtGage.event(click,cmd_txtgage_click)
+gui.SS_Form1.cmd_txtGage.defaultvalue("")
+gui.SS_Form1.cmd_txtGage.controlgroup(0)
+gui.SS_Form1.lbl_txtDescription.create(label,"Description",True,1800,200,1,100,835,True,0,Arial,8,-2147483633,0)
+gui.SS_Form1.lbl_txtDescription.defaultvalue("")
+gui.SS_Form1.lbl_txtDescription.controlgroup(0)
+gui.SS_Form1.txtDescription.create(textbox,"",True,3800,330,0,100,1035,True,0,Arial,8,16777215,1)
+gui.SS_Form1.txtDescription.maxLength(100)
+gui.SS_Form1.txtDescription.defaultvalue("")
+gui.SS_Form1.txtDescription.controlgroup(1)
+gui.SS_Form1.lbl_dtpCurCal.create(label,"Current CAL Date",True,1800,200,1,3985,835,True,0,Arial,8,-2147483633,0)
+gui.SS_Form1.lbl_dtpCurCal.defaultvalue("")
+gui.SS_Form1.lbl_dtpCurCal.controlgroup(0)
+gui.SS_Form1.dtpCurCal.create(datepicker)
+gui.SS_Form1.dtpCurCal.visible(True)
+gui.SS_Form1.dtpCurCal.size(1800,345)
+gui.SS_Form1.dtpCurCal.zorder(0)
+gui.SS_Form1.dtpCurCal.position(3985,1035)
+gui.SS_Form1.dtpCurCal.enabled(True)
+gui.SS_Form1.dtpCurCal.checkbox(False)
+gui.SS_Form1.dtpCurCal.defaultvalue("")
+gui.SS_Form1.dtpCurCal.controlgroup(0)
+gui.SS_Form1.cmdSave.create(button)
+gui.SS_Form1.cmdSave.caption("Save")
+gui.SS_Form1.cmdSave.visible(True)
+gui.SS_Form1.cmdSave.size(1000,360)
+gui.SS_Form1.cmdSave.zorder(0)
+gui.SS_Form1.cmdSave.position(100,1550)
+gui.SS_Form1.cmdSave.enabled(True)
+gui.SS_Form1.cmdSave.fontname("Arial")
+gui.SS_Form1.cmdSave.fontsize(8)
+gui.SS_Form1.cmdSave.event(click,cmdsave_click)
+gui.SS_Form1.cmdSave.defaultvalue("")
+gui.SS_Form1.cmdSave.controlgroup(0)
+gui.SS_Form1.cmdDelete.create(button)
+gui.SS_Form1.cmdDelete.caption("Delete")
+gui.SS_Form1.cmdDelete.visible(True)
+gui.SS_Form1.cmdDelete.size(1000,360)
+gui.SS_Form1.cmdDelete.zorder(0)
+gui.SS_Form1.cmdDelete.position(1185,1550)
+gui.SS_Form1.cmdDelete.enabled(True)
+gui.SS_Form1.cmdDelete.fontname("Arial")
+gui.SS_Form1.cmdDelete.fontsize(8)
+gui.SS_Form1.cmdDelete.event(click,cmddelete_click)
+gui.SS_Form1.cmdDelete.defaultvalue("")
+gui.SS_Form1.cmdDelete.controlgroup(0)
+gui.SS_Form1.txtGage.tabstop(true)
+gui.SS_Form1.txtGage.tabindex(1)
+gui.SS_Form1.cmd_txtGage.tabstop(true)
+gui.SS_Form1.cmd_txtGage.tabindex(2)
+gui.SS_Form1.txtDescription.tabstop(true)
+gui.SS_Form1.txtDescription.tabindex(3)
+gui.SS_Form1.dtpCurCal.tabstop(true)
+gui.SS_Form1.dtpCurCal.tabindex(4)
+gui.SS_Form1.cmdSave.tabstop(true)
+gui.SS_Form1.cmdSave.tabindex(5)
+gui.SS_Form1.cmdDelete.tabstop(true)
+gui.SS_Form1.cmdDelete.tabindex(6)
+
+
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+
+'OPEN CONNECTION
+F.ODBC.Connection!CONX.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+
+'SHOW FORM
+Gui.SS_Form1..Show
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_MAINT.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Main.End
+
+program.sub.cmd_txtgage_click.start
+F.Intrinsic.Control.SetErrorHandler("cmd_txtgage_click_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.sW.Declare(String)
+V.Local.sT.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.sSQL.Declare(String)
+
+'BUILDING BROWSER
+Function.Intrinsic.String.Split("Gage*!*Description*!*Current CAL Date","*!*",V.Local.sT)
+Function.Intrinsic.String.Split("2500*!*5000*!*1500","*!*",V.Local.sW)
+V.Local.sSQL.Set("SELECT * FROM GCG_4039_MAINT ORDER BY GAGE_NO ASC")
+
+Function.Intrinsic.UI.Browser("Select a Gage","CONX",V.Local.sSQL,V.Local.sT,V.Local.sW,V.Local.sRet)
+
+Function.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+	Function.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+	Gui.SS_Form1.txtGage.Text(V.Local.sRet(0).Trim)
+	Gui.SS_Form1.txtDescription.Text(V.Local.sRet(1).Trim)
+	Gui.SS_Form1.dtpCurCal.Value(V.Local.sRet(2).Trim)
+Function.Intrinsic.Control.EndIf
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("cmd_txtgage_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_MAINT.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.cmd_txtgage_click.end
+
+program.sub.cmdsave_click.start
+F.Intrinsic.Control.SetErrorHandler("cmdsave_click_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.sSQL.Declare(String)
+
+Function.Intrinsic.Control.If(V.Screen.SS_Form1!txtGage.Text,<>,"")
+Function.Intrinsic.Control.AndIf(V.Screen.SS_Form1!txtDescription.Text,<>,"")
+	Function.Intrinsic.String.Concat("SELECT * FROM GCG_4039_MAINT WHERE GAGE_NO = '",V.Screen.SS_Form1!txtGage.Text,"'",V.Local.sSQL)
+	Function.ODBC.Connection!CONX.OpenLocalRecordsetRW("rst",V.Local.sSQL)
+	Function.Intrinsic.Control.If(V.ODBC.CONX!rst.EOF,=,True)
+		Function.ODBC.CONX!rst.AddNew
+		Function.ODBC.CONX!rst.Set!GAGE_NO(V.Screen.SS_Form1!txtGage.Text)
+	Function.Intrinsic.Control.EndIf
+	Function.ODBC.CONX!rst.Set!DESCRIPTION(V.Screen.SS_Form1!txtDescription.Text)
+	Function.ODBC.CONX!rst.Set!CUR_CAL_DATE(V.Screen.SS_Form1!dtpCurCal.Value)
+	Function.ODBC.CONX!rst.Update
+	Function.ODBC.CONX!rst.Close
+	gui.SS_Form1..ClearGroup(1)
+	Gui.SS_Form1.dtpCurCal.Value(V.Ambient.Date)
+Function.Intrinsic.Control.Else
+	Function.Intrinsic.UI.Msgbox("Gage and Description are Required Fields","Required Fields")
+Function.Intrinsic.Control.EndIf
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("cmdsave_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_MAINT.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.cmdsave_click.end
+
+program.sub.cmddelete_click.start
+F.Intrinsic.Control.SetErrorHandler("cmddelete_click_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.sSQL.Declare(String)
+
+Function.Intrinsic.Control.If(V.Screen.SS_Form1!txtGage.Text,<>,"")
+	Function.Intrinsic.String.Concat("DELETE FROM GCG_4039_MAINT WHERE GAGE_NO = '",V.Screen.SS_Form1!txtGage.Text,"'",V.Local.sSQL)
+	Function.ODBC.Connection!CONX.Execute(V.Local.sSQL)
+	GUI.SS_Form1..ClearGroup(1)
+	Gui.SS_Form1.dtpCurCal.Value(V.Ambient.Date)
+Function.Intrinsic.Control.EndIf
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("cmddelete_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_MAINT.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.cmddelete_click.end
+
+program.sub.ss_form1_unload.start
+Function.ODBC.Connection!CONX.Close
+Function.Intrinsic.Control.End
+
+program.sub.ss_form1_unload.end
+
+program.sub.txtgage_lostfocus.start
+F.Intrinsic.Control.SetErrorHandler("txtgage_lostfocus_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.sSQL.Declare(String)
+
+'IF THE ENTERED VALUE ALREADY EXISTS, LOAD IT
+
+Function.Intrinsic.Control.If(V.Screen.SS_Form1!txtGage.Text,<>,"")
+	Function.Intrinsic.String.Concat("SELECT * FROM GCG_4039_MAINT WHERE GAGE_NO = '",V.Screen.SS_Form1!txtGage.Text,"'",V.Local.sSQL)
+	Function.ODBC.Connection!CONX.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+	Function.Intrinsic.Control.If(V.ODBC.CONX!rst.EOF,=,False)
+		Gui.SS_Form1.txtDescription.Text(V.ODBC.CONX!rst.FieldValTrim!DESCRIPTION)
+		Gui.SS_Form1.dtpCurCal.Value(V.ODBC.CONX!rst.FieldVal!CUR_CAL_DATE)
+	Function.Intrinsic.Control.EndIf
+	Function.ODBC.CONX!rst.Close
+Function.Intrinsic.Control.EndIf
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("txtgage_lostfocus_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_MAINT.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.txtgage_lostfocus.end
+
+Program.Sub.Comments.Start
+${$0$}$GCG_4039_MAINT$}$BLEFLER$}$10/26/2014
+Program.Sub.Comments.End
+Program.Sub.ScreenSS.Start
+SS_Form1{{CAPTION::Maintain Inspection Gages
+SS_Form1.CTRL{{NAME::txtGage\\TYPE::2\\CAPTION::Gage Number\\TABSTOP::1\\GROUP::1\\BROWSER::1\\SIZE::1
+SS_Form1.CTRL{{NAME::txtDescription\\TYPE::2\\CAPTION::Description\\TABSTOP::2\\GROUP::2\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::dtpCurCal\\TYPE::6\\CAPTION::Current CAL Date\\TABSTOP::3\\GROUP::2\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::cmdSave\\TYPE::5\\CAPTION::Save\\TABSTOP::4\\GROUP::3\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::cmdDelete\\TYPE::5\\CAPTION::Delete\\TABSTOP::5\\GROUP::3\\BROWSER::0\\SIZE::1
+
+Program.Sub.ScreenSS.End
+
