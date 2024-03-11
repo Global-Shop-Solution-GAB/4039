@@ -1,0 +1,458 @@
+Program.Sub.ScreenSU.Start
+gui.f_Main..create
+gui.f_Main..caption("NCMR Notes")
+gui.f_Main..size(5450,7550)
+gui.f_Main..minx(0)
+gui.f_Main..miny(0)
+gui.f_Main..position(0,0)
+gui.f_Main..event(unload,f_add_unload)
+gui.f_Main..alwaysontop(False)
+gui.f_Main..fontname("Arial")
+gui.f_Main..fontsize(8)
+gui.f_Main..forecolor(0)
+gui.f_Main..fontstyle(,,,,)
+gui.f_Main..BackColor(-2147483633)
+gui.f_Main..controlbox(True)
+gui.f_Main..maxbutton(False)
+gui.f_Main..minbutton(True)
+gui.f_Main..mousepointer(0)
+gui.f_Main..moveable(True)
+gui.f_Main..sizeable(False)
+gui.f_Main..ShowInTaskBar(True)
+gui.f_Main..titlebar(True)
+gui.f_Main.lvlNCMRs.create(listview)
+gui.f_Main.lvlNCMRs.view(3)
+gui.f_Main.lvlNCMRs.addlistviewcolumn("Control",900,0)
+gui.f_Main.lvlNCMRs.addlistviewcolumn("Quantity",1000,1)
+gui.f_Main.lvlNCMRs.addlistviewcolumn("Code",1000,0)
+gui.f_Main.lvlNCMRs.addlistviewcolumn("Description",2000,0)
+gui.f_Main.lvlNCMRs.visible(True)
+gui.f_Main.lvlNCMRs.size(5000,2000)
+gui.f_Main.lvlNCMRs.zorder(0)
+gui.f_Main.lvlNCMRs.position(100,5000)
+gui.f_Main.lvlNCMRs.enabled(True)
+gui.f_Main.lvlNCMRs.fontname("Arial")
+gui.f_Main.lvlNCMRs.fontsize(8)
+gui.f_Main.lvlNCMRs.event(itemclick,lvlncmrs_itemclick)
+gui.f_Main.lblControl.create(label,"Control No.",True,1000,255,1,100,100,True,0,Arial,8,-2147483633,0)
+gui.f_Main.lblControl.defaultvalue("")
+gui.f_Main.lblControl.controlgroup(0)
+gui.f_Main.txtControlNo.create(textbox,"",True,1250,300,0,100,300,False,0,Arial,8,-2147483643,1)
+gui.f_Main.txtControlNo.defaultvalue("")
+gui.f_Main.txtControlNo.controlgroup(1)
+gui.f_Main.txtReqTol.create(textbox,"",True,5000,300,0,100,900,True,0,Arial,8,-2147483643,1)
+gui.f_Main.txtReqTol.maxLength(100)
+gui.f_Main.txtReqTol.defaultvalue("")
+gui.f_Main.txtReqTol.controlgroup(1)
+gui.f_Main.lblReqTol.create(label,"Required Tolerance",True,1500,255,1,100,700,True,0,Arial,8,-2147483633,0)
+gui.f_Main.lblReqTol.defaultvalue("")
+gui.f_Main.lblReqTol.controlgroup(0)
+gui.f_Main.lblNonConformance.create(label,"Nonconfomance",True,1250,255,1,100,1300,True,0,Arial,8,-2147483633,0)
+gui.f_Main.lblNonConformance.defaultvalue("")
+gui.f_Main.lblNonConformance.controlgroup(0)
+gui.f_Main.txtNonConformance.create(textboxm)
+gui.f_Main.txtNonConformance.text("")
+gui.f_Main.txtNonConformance.visible(True)
+gui.f_Main.txtNonConformance.size(5000,1000)
+gui.f_Main.txtNonConformance.zorder(0)
+gui.f_Main.txtNonConformance.position(100,1500)
+gui.f_Main.txtNonConformance.enabled(True)
+gui.f_Main.txtNonConformance.alignment(0)
+gui.f_Main.txtNonConformance.fontname("Arial")
+gui.f_Main.txtNonConformance.fontsize(8)
+gui.f_Main.txtNonConformance.maxLength(400)
+gui.f_Main.txtNonConformance.BackColor(-2147483643)
+gui.f_Main.txtNonConformance.defaultvalue("")
+gui.f_Main.txtNonConformance.controlgroup(1)
+gui.f_Main.lblAddlNotes.create(label,"Additional Notes",True,1250,255,1,100,2600,True,0,Arial,8,-2147483633,0)
+gui.f_Main.lblAddlNotes.defaultvalue("")
+gui.f_Main.lblAddlNotes.controlgroup(0)
+gui.f_Main.txtAddlNotes.create(textboxm)
+gui.f_Main.txtAddlNotes.text("")
+gui.f_Main.txtAddlNotes.visible(True)
+gui.f_Main.txtAddlNotes.size(5000,1000)
+gui.f_Main.txtAddlNotes.zorder(0)
+gui.f_Main.txtAddlNotes.position(100,2800)
+gui.f_Main.txtAddlNotes.enabled(True)
+gui.f_Main.txtAddlNotes.alignment(0)
+gui.f_Main.txtAddlNotes.fontname("Arial")
+gui.f_Main.txtAddlNotes.fontsize(8)
+gui.f_Main.txtAddlNotes.maxLength(400)
+gui.f_Main.txtAddlNotes.BackColor(-2147483643)
+gui.f_Main.txtAddlNotes.defaultvalue("")
+gui.f_Main.txtAddlNotes.controlgroup(1)
+gui.f_Main.lblReqOAL.create(label,"Required OAL",True,1250,255,1,100,3900,True,0,Arial,8,-2147483633,0)
+gui.f_Main.lblReqOAL.defaultvalue("")
+gui.f_Main.lblReqOAL.controlgroup(0)
+gui.f_Main.txtReqOAL.create(textbox,"",True,2000,300,0,100,4100,True,0,Arial,8,-2147483643,1)
+gui.f_Main.txtReqOAL.maxLength(20)
+gui.f_Main.txtReqOAL.defaultvalue("")
+gui.f_Main.txtReqOAL.controlgroup(1)
+gui.f_Main.txtActOAL.create(textbox,"",True,2000,300,0,2150,4100,True,0,Arial,8,-2147483643,1)
+gui.f_Main.txtActOAL.defaultvalue("")
+gui.f_Main.txtActOAL.controlgroup(1)
+gui.f_Main.lblActOAL.create(label,"Actual OAL",True,1250,255,1,2150,3900,True,0,Arial,8,-2147483633,0)
+gui.f_Main.lblActOAL.defaultvalue("")
+gui.f_Main.lblActOAL.controlgroup(0)
+gui.f_Main.cmdSave.create(button)
+gui.f_Main.cmdSave.caption("Save")
+gui.f_Main.cmdSave.visible(True)
+gui.f_Main.cmdSave.size(855,375)
+gui.f_Main.cmdSave.zorder(0)
+gui.f_Main.cmdSave.position(100,4500)
+gui.f_Main.cmdSave.enabled(True)
+gui.f_Main.cmdSave.fontname("Arial")
+gui.f_Main.cmdSave.fontsize(8)
+gui.f_Main.cmdSave.event(click,cmdsave_click)
+gui.f_Main.cmdSave.defaultvalue("")
+gui.f_Main.cmdSave.controlgroup(0)
+
+
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Variable.Global.bIsMulti.Declare(Boolean,False)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'modified version by Quote  6467
+'coded by TRT
+'removal if INSP sequences has been removed, only group check will be perfmored.
+'2/22/15
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.sJob.Declare(String)
+V.Local.sSuffix.Declare(String)
+V.Local.sSeq.Declare(String)
+V.Local.sEmp.Declare(String)
+V.Local.sSQL.Declare(String)
+
+Function.Intrinsic.Control.SelectCase(V.Caller.Hook)
+
+'HOOK NUMBER 28400 = POPULATE OF THE SELECT SCRAP REASON CODES IN GUI.
+Function.Intrinsic.Control.Case(28400)
+	'CHANGE THE TEXT OF THE SCRIPT 2 BUTTON
+	V.Passed.000039.Set("NCMR Notes")
+'HOOK NUMBER 28402= SCRIPT 2CLICK OF THE SELECT SCRAP REASON CODES IN GUI.
+Function.Intrinsic.Control.Case(28402)
+	'EXTRACT JOB, SUFFIX, SEQUENCE, AND EMPLOYEE FROM SELECTED JOB
+	V.Local.sJob.Set(V.Passed.009990)
+	V.Local.sSuffix.Set(V.Passed.009991)
+	V.Local.sSeq.Set(V.Passed.009992)
+	V.Local.sEmp.Set(V.Passed.009993)
+	'OPEN DB CONNECTION
+	Function.ODBC.Connection!CONX.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+	Function.Intrinsic.String.Concat("SELECT DEPT_EMPLOYEE FROM V_EMPLOYEE_MSTR WHERE EMPLOYEE = '",V.Local.sEmp,"'",V.Local.sSQL)
+	Function.ODBC.Connection!CONX.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+	'EMPLOYEE IS IN THE 0450 DEPARTMENT. CONTINUE
+	Function.Intrinsic.Control.If(V.ODBC.CONX!rst.FieldValTrim!DEPT_EMPLOYEE,=,"0450")
+		Function.ODBC.CONX!rst.Close
+		'READ DATA FROM BDF TO GET INFORMATION FOR FORM
+		Function.Intrinsic.Control.CallSub(Readbdf)
+	'EMPLOYEE IS NOT IN THE 0450 DEPARTMENT. ERROR AND TERMINATE
+	Function.Intrinsic.Control.Else
+		Function.ODBC.CONX!rst.Close
+		Function.ODBC.Connection!CONX.Close
+		Function.Intrinsic.UI.Msgbox("Only QC employees are able to proceed","Access Denied")
+		Function.Intrinsic.Control.ExitSub
+	Function.Intrinsic.Control.EndIf
+Function.Intrinsic.Control.Case(28406)
+	'EXTRACT JOB, SUFFIX, SEQUENCE, AND EMPLOYEE FROM SELECTED JOB
+	V.Local.sJob.Set(V.Passed.009990)
+	V.Local.sSuffix.Set(V.Passed.009991)
+	V.Local.sSeq.Set(V.Passed.009992)
+	V.Local.sEmp.Set(V.Passed.009993)
+	'OPEN DB CONNECTION
+	Function.ODBC.Connection!CONX.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+	Function.Intrinsic.String.Concat("SELECT DEPT_EMPLOYEE FROM V_EMPLOYEE_MSTR WHERE EMPLOYEE = '",V.Local.sEmp,"'",V.Local.sSQL)
+	Function.ODBC.Connection!CONX.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+	'EMPLOYEE IS IN THE 0450 DEPARTMENT. CONTINUE
+	Function.Intrinsic.Control.If(V.ODBC.CONX!rst.FieldValTrim!DEPT_EMPLOYEE,=,"0450")
+		Function.ODBC.CONX!rst.Close
+		'READ DATA FROM BDF TO GET INFORMATION FOR FORM
+		Function.Intrinsic.Control.CallSub(Validate)
+	'EMPLOYEE IS NOT IN THE 0450 DEPARTMENT. ERROR AND TERMINATE
+	Function.Intrinsic.Control.Else
+		Function.ODBC.CONX!rst.Close
+		Function.ODBC.Connection!CONX.Close
+		Function.Intrinsic.Control.ExitSub
+	Function.Intrinsic.Control.EndIf
+Function.Intrinsic.Control.Case(28901)
+	V.Passed.000168.Set("NCMR Notes")
+Function.Intrinsic.Control.Case(28905)
+	Function.Intrinsic.Control.If(V.Passed.000002,<>,0)
+		Function.ODBC.Connection!CONX.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+		Gui.f_Main.txtControlNo.Text(V.Passed.000002)
+		Gui.f_Main.lvlNCMRs.Visible(False)
+		Gui.f_Main.lvlNCMRs.Enabled(False)
+		Gui.f_Main..Size(5450,5425)
+		V.Global.bIsMulti.Set(False)
+		Function.Intrinsic.Control.CallSub(Loadfromcontrol)
+		Gui.f_Main..Show
+	Function.Intrinsic.Control.EndIf
+Function.Intrinsic.Control.EndSelect
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_NOTES.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Main.End
+
+Program.Sub.ReadBDF.Start
+F.Intrinsic.Control.SetErrorHandler("ReadBDF_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.iRows.Declare(Long)
+V.Local.i.Declare(Long)
+V.Local.sData.Declare(String)
+
+F.Intrinsic.BDF.Load("AUX001","AUX001")
+F.Intrinsic.BDF.ReadRowCount("AUX001",V.Local.iRows)
+F.Intrinsic.Math.Sub(V.Local.iRows,1,V.Local.iRows)
+
+Function.Intrinsic.Control.If(V.Local.iRows,=,-1)
+	Function.Intrinsic.UI.Msgbox("You must select Scrap Code(s) prior to adding notes.","No Scrap Codes Found")
+	Function.Intrinsic.Control.ExitSub
+Function.Intrinsic.Control.EndIf
+
+Function.Intrinsic.Control.If(V.Local.iRows,=,0)
+	Gui.f_Main.lvlNCMRs.Visible(False)
+	Gui.f_Main.lvlNCMRs.Enabled(False)
+	Gui.f_Main..Size(5450,5425)
+	V.Global.bIsMulti.Set(False)
+	Function.Intrinsic.BDF.ReadRow("AUX001",0,V.Local.sData)
+	Function.Intrinsic.String.Split(V.Local.sData,"|~|",V.Local.sData)
+	Function.Intrinsic.Control.If(V.Local.sData(3).Trim,<>,"")
+		Gui.f_Main.txtControlNo.Text(V.Local.sData(3).Trim)
+		Function.Intrinsic.Control.CallSub(Loadfromcontrol)
+		Gui.f_Main..Show
+	Function.Intrinsic.Control.Else
+		Function.Intrinsic.UI.Msgbox("You must select Scrap Code(s) prior to adding notes.","No Scrap Codes Found")
+		Function.Intrinsic.Control.CallSub(F_add_unload)
+	Function.Intrinsic.Control.EndIf
+Function.Intrinsic.Control.Else
+	Gui.f_Main.lvlNCMRs.Visible(True)
+	Gui.f_Main.lvlNCMRs.Enabled(True)
+	Gui.f_Main..Size(5450,7550)
+	V.Global.bIsMulti.Set(True)
+	Function.Intrinsic.Control.For(V.Local.i,0,V.Local.iRows,1)
+		Function.Intrinsic.BDF.ReadRow("AUX001",V.Local.i,V.Local.sData)
+		Function.Intrinsic.String.Split(V.Local.sData,"|~|",V.Local.sData)
+		Function.Intrinsic.Control.If(V.Local.sData(3).Trim,<>,"")
+			Gui.f_Main.lvlNCMRs.AddListItem(V.Local.sData(3).Trim,V.Local.sData(3).Trim)
+			Gui.f_Main.lvlNCMRs.SetListItemSubItemText(V.Local.sData(3).Trim,1,V.Local.sData(2).Trim)
+			Gui.f_Main.lvlNCMRs.SetListItemSubItemText(V.Local.sData(3).Trim,2,V.Local.sData(0).Trim)
+			Gui.f_Main.lvlNCMRs.SetListItemSubItemText(V.Local.sData(3).Trim,3,V.Local.sData(1).Trim)
+		Function.Intrinsic.Control.EndIf
+		Gui.f_Main..Show
+	Function.Intrinsic.Control.Next(V.Local.i)
+Function.Intrinsic.Control.EndIf
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("ReadBDF_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_NOTES.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.ReadBDF.End
+
+program.sub.f_add_unload.start
+Function.ODBC.Connection!CONX.Close
+Function.Intrinsic.Control.End
+
+program.sub.f_add_unload.end
+
+program.sub.cmdsave_click.start
+F.Intrinsic.Control.SetErrorHandler("cmdsave_click_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.sSQL.Declare(String)
+
+Function.Intrinsic.Control.If(V.Screen.f_Main!txtControlNo.Text,<>,"")
+Function.Intrinsic.Control.AndIf(V.Screen.f_Main!txtReqTol.Text,<>,"")
+Function.Intrinsic.Control.AndIf(V.Screen.f_Main!txtNonConformance.Text,<>,"")
+Function.Intrinsic.Control.AndIf(V.Screen.f_Main!txtAddlNotes.Text,<>,"")
+Function.Intrinsic.Control.AndIf(V.Screen.f_Main!txtReqOAL.Text,<>,"")
+Function.Intrinsic.Control.AndIf(V.Screen.f_Main!txtActOAL.Text,<>,"")
+	Function.Intrinsic.String.Concat("SELECT * FROM GCG_4039_NOTES WHERE CONTROL_NO = '",V.Screen.f_Main!txtControlNo.Text,"'",V.Local.sSQL)
+	Function.ODBC.Connection!CONX.OpenLocalRecordsetRW("rst",V.Local.sSQL)
+	Function.Intrinsic.Control.If(V.ODBC.CONX!rst.EOF,=,True)
+		Function.ODBC.CONX!rst.AddNew
+		Function.ODBC.CONX!rst.Set!CONTROL_NO(V.Screen.f_Main!txtControlNo.Text)
+	Function.Intrinsic.Control.EndIf
+	Function.ODBC.CONX!rst.Set!REQ_TOL(V.Screen.f_Main!txtReqTol.Text)
+	Function.ODBC.CONX!rst.Set!NONCONFORM(V.Screen.f_Main!txtNonConformance.Text)
+	Function.ODBC.CONX!rst.Set!ADDL_NOTES(V.Screen.f_Main!txtAddlNotes.Text)
+	Function.ODBC.CONX!rst.Set!REQ_OAL(V.Screen.f_Main!txtReqOAL.Text)
+	Function.ODBC.CONX!rst.Set!ACT_OAL(V.Screen.f_Main!txtActOAL.Text)
+	Function.ODBC.CONX!rst.Update
+	Function.ODBC.CONX!rst.Close
+	Function.Intrinsic.Control.If(V.Global.bIsMulti,=,True)
+		GUI.f_Main..ClearGroup(1)
+	Function.Intrinsic.Control.Else
+		Function.Intrinsic.Control.CallSub(F_add_unload)
+	Function.Intrinsic.Control.EndIf
+Function.Intrinsic.Control.Else
+	Function.Intrinsic.UI.Msgbox("All fields on form are required","Required Fields")
+Function.Intrinsic.Control.EndIf
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("cmdsave_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_NOTES.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.cmdsave_click.end
+
+program.sub.lvlncmrs_itemclick.start
+F.Intrinsic.Control.SetErrorHandler("lvlncmrs_itemclick_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.iOrd.Declare(String)
+V.Local.sText.Declare(String)
+
+gui.f_Main..ClearGroup(1)
+Gui.f_Main.lvlNCMRs.ListitemKeyToOrdinal(V.Screen.f_Main!lvlNCMRs.SelectedItemKey,V.Local.iOrd)
+Function.Intrinsic.String.Split(V.Screen.f_Main!lvlNCMRs.ListItemTextExtended(v.Local.iOrd),"*!*",V.Local.sText)
+Gui.f_Main.txtControlNo.Text(V.Local.sText(0).Trim)
+Function.Intrinsic.Control.CallSub(Loadfromcontrol)
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("lvlncmrs_itemclick_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_NOTES.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.lvlncmrs_itemclick.end
+
+Program.Sub.LoadFromControl.Start
+F.Intrinsic.Control.SetErrorHandler("LoadFromControl_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.sSQL.Declare(String)
+
+Function.Intrinsic.String.Concat("SELECT * FROM GCG_4039_NOTES WHERE CONTROL_NO = '",V.Screen.f_Main!txtControlNo.Text,"'",V.Local.sSQL)
+Function.ODBC.Connection!CONX.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+Function.Intrinsic.Control.If(V.ODBC.CONX!rst.EOF,=,False)
+	Gui.f_Main.txtReqTol.Text(V.ODBC.CONX!rst.FieldValTrim!REQ_TOL)
+	Gui.f_Main.txtNonConformance.Text(V.ODBC.CONX!rst.FieldValTrim!NONCONFORM)
+	Gui.f_Main.txtAddlNotes.Text(V.ODBC.CONX!rst.FieldValTrim!ADDL_NOTES)
+	Gui.f_Main.txtReqOAL.Text(V.ODBC.CONX!rst.FieldValTrim!REQ_OAL)
+	Gui.f_Main.txtActOAL.Text(V.ODBC.CONX!rst.FieldValTrim!ACT_OAL)
+Function.Intrinsic.Control.EndIf
+Function.ODBC.CONX!rst.Close
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("LoadFromControl_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_NOTES.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.LoadFromControl.End
+
+Program.Sub.Validate.Start
+F.Intrinsic.Control.SetErrorHandler("Validate_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.i.Declare(Long)
+V.Local.iRows.Declare(Long)
+V.Local.sData.Declare(String)
+V.Local.sRowSplit.Declare(String)
+V.Local.sSQL.Declare(String)
+V.Local.bFail.Declare(Boolean,False)
+V.Local.sControlsNoRec.Declare(String)
+
+Function.Intrinsic.BDF.Load("AUX001","AUX001")
+Function.Intrinsic.BDF.ReadRowCount("AUX001",V.Local.iRows)
+Function.Intrinsic.Math.Sub(V.Local.iRows,1,V.Local.iRows)
+
+Function.Intrinsic.Control.If(V.Local.iRows,<>,-1)
+'	Function.ODBC.Connection!CONX.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+	Function.Intrinsic.Control.For(V.Local.i,0,V.Local.iRows,1)
+		Function.Intrinsic.BDF.ReadRow("AUX001",V.Local.i,V.Local.sData)
+		Function.Intrinsic.String.Split(V.Local.sData,"|~|",V.Local.sRowSplit)
+		Function.Intrinsic.String.Concat("SELECT * FROM GCG_4039_NOTES WHERE CONTROL_NO = '",V.Local.sRowSplit(3).trim,"'",V.Local.sSQL)
+		Function.ODBC.Connection!CONX.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+		Function.Intrinsic.Control.If(V.ODBC.CONX!rst.EOF,=,True)
+			V.Local.bFail.sET(True)
+			Function.Intrinsic.Control.If(V.Local.SControlsNoRec,=,"")
+				V.Local.SControlsNoRec.Set(V.Local.sRowSplit(3).Trim)
+			Function.Intrinsic.Control.Else
+				Function.Intrinsic.String.Concat(V.Local.SControlsNoRec,V.Ambient.NewLine,V.Local.sRowSplit(3).Trim,V.Local.SControlsNoRec)
+			Function.Intrinsic.Control.endif
+		Function.Intrinsic.Control.EndIf
+		Function.ODBC.CONX!rst.Close
+	Function.Intrinsic.Control.Next(V.Local.i)
+	Function.Intrinsic.Control.If(V.Local.bFail,=,True)
+		Function.Intrinsic.String.Concat("Unable to continue. NCMR records are being created, and no notes have been entered. Please enter the notes for the following NCMRs",V.Ambient.NewLine,V.Ambient.NewLine,V.Local.SControlsNoRec,V.Local.SControlsNoRec)
+		Function.Intrinsic.UI.Msgbox(V.Local.SControlsNoRec,"All Notes are Mandatory")
+		V.Passed.777777.Set(1)
+	Function.Intrinsic.Control.EndIf
+	Function.ODBC.Connection!CONX.Close
+Function.Intrinsic.Control.EndIf
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("Validate_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_NOTES.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Validate.End
+
+Program.Sub.Comments.Start
+${$0$}$GCG_NMCR_NOTES$}$BLEFLER$}$10/26/2014
+Program.Sub.Comments.End
+
