@@ -1,0 +1,120 @@
+Program.Sub.ScreenSU.Start
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Variable.Global.sFile.Declare(String)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+
+Function.ODBC.Connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+
+Function.Intrinsic.UI.ShowOpenFileDialog("","","",V.Global.sFile)
+Function.Intrinsic.Control.If(V.Global.sFile,<>,"***CANCEL***")
+	Function.Intrinsic.Control.CallSub(Upload)
+Function.Intrinsic.Control.Else
+	Function.ODBC.Connection!conx.Close
+	Function.Intrinsic.Control.End
+Function.Intrinsic.Control.EndIf
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_UPLOAD.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Main.End
+
+program.sub.Upload.start
+F.Intrinsic.Control.SetErrorHandler("cmdupload_click_Err")
+F.Intrinsic.Control.ClearErrors
+'ERROR HANDLING ABOVE
+
+'DECLARE VARIABLES
+V.Local.sError.Declare(String)
+V.Local.sSheets.Declare(String)
+V.Local.sData.Declare(String)
+V.Local.sRows.Declare(String)
+V.Local.sCols.Declare(String)
+V.Local.i.Declare(Long)
+V.Local.bExists.Declare(Boolean)
+V.Local.sRet.Declare(String)
+V.Local.iStartRow.Declare(Long)
+V.Local.sSQL.Declare(String)
+
+Function.Intrinsic.File.Exists(V.Global.sFile,V.Local.bExists)
+Function.Intrinsic.Control.If(V.Local.bExists,=,True)
+	Function.Automation.MSExcel.ReadSpreadsheet(V.Global.sFile,V.Local.sData)
+	Function.Intrinsic.String.Split(V.Local.sData,"&^&",V.Local.sData)
+	Function.Intrinsic.Control.If(V.Local.sData.UBound,>,0)
+		Function.Intrinsic.UI.Inputbox("Multiple Sheets Detected. Enter Sheet No.","Multiple Sheets","1",V.Local.sRet)
+		Function.Intrinsic.Math.Sub(V.Local.sRet,1,V.Local.sRet)
+	Function.Intrinsic.Control.Else
+		V.Local.sRet.Set(0)
+	Function.Intrinsic.Control.EndIf
+	Function.Intrinsic.String.Split(V.Local.sData(v.Local.sRet),"$!$",V.Local.sRows)
+	Function.Intrinsic.ui.Inputbox("Please select starting row after column headers.","Enter Starting Row","2",V.Local.iStartRow)
+	Function.Intrinsic.Math.Sub(V.Local.iStartRow,1,V.Local.iStartRow)
+	Function.Intrinsic.UI.InvokeWaitDialog("","Please Wait")
+	Function.ODBC.Connection!conx.OpenLocalRecordsetRW("rst","SELECT * FROM GCG_4039_MAINT")
+	Function.Intrinsic.Control.For(V.Local.i,V.Local.iStartRow,V.Local.sRows.UBound,1)
+		Function.Intrinsic.UI.ChangeWaitStatus("Uploading Records",V.Local.i,V.Local.iStartRow,V.Local.sRows.UBound)
+		Function.Intrinsic.String.Split(V.Local.sRows(v.Local.i),"*!*",V.Local.sCols)
+		Function.ODBC.Conx!rst.AddNew
+		Function.ODBC.conx!rst.Set!GAGE_NO(V.Local.sCols(0).Trim)
+		Function.ODBC.conx!rst.Set!DESCRIPTION(V.Local.sCols(1).Trim)
+		Function.Intrinsic.Control.If(V.Local.sCols(2).IsDate,=,True)
+			Function.Intrinsic.String.Format(V.Local.sCols(2),"MM/DD/YYYY",V.Local.sCols(2))
+		Function.Intrinsic.Control.Else
+			V.Local.sCols(2).Set("01/01/1900")
+		Function.Intrinsic.Control.EndIf
+		Function.ODBC.conx!rst.Set!CUR_CAL_DATE(V.Local.sCols(2).Trim)
+		Function.ODBC.conx!rst.Update
+		Function.ODBC.conx!rst.MoveNext
+	Function.Intrinsic.Control.Next(V.Local.i)
+	Function.ODBC.conx!rst.Close
+	Function.Intrinsic.UI.CloseWaitDialog
+	Function.Intrinsic.UI.Msgbox("Upload Successful","Success")
+	Function.ODBC.Connection!conx.Close
+	Function.Intrinsic.Control.End
+Function.Intrinsic.Control.EndIf
+
+'TERMINATE SUBROUTINE
+F.Intrinsic.Control.ExitSub
+
+'ERROR HANDLING BELOW
+F.Intrinsic.Control.Label("cmdupload_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4039_UPLOAD.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+'INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)
+'VALUES('Cardinal','TomB.Erichsen','Skagen21','Stavanger','4006','Norway');
+
+program.sub.Upload.end
+
+Program.Sub.Comments.Start
+${$0$}$GCG_GAGE_UPLOAD$}$BLEFLER$}$10/26/2014
+Program.Sub.Comments.End
+Program.Sub.ScreenSS.Start
+SS_Form1{{CAPTION::Upload Gage Records
+SS_Form1.CTRL{{NAME::txtCol\\TYPE::2\\CAPTION::Starting Column\\VALUE::1\\TABSTOP::1\\GROUP::1\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::txtRow\\TYPE::2\\CAPTION::Starting Row\\VALUE::3\\TABSTOP::2\\GROUP::1\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::txtFile\\TYPE::2\\CAPTION::Select a File\\TABSTOP::3\\GROUP::2\\BROWSER::1\\SIZE::2
+SS_Form1.CTRL{{NAME::cmdUpload\\TYPE::5\\CAPTION::Upload\\TABSTOP::4\\GROUP::2\\BROWSER::0\\SIZE::1
+
+Program.Sub.ScreenSS.End
+
